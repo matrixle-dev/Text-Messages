@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>短信验证</title>
+</head>
+<body>
+	<form method="POST">
+		验证码：<input type="text" id='veriCode' value='' placeholder="请输入您收到的验证码" required="required"><br>
+		<br>
+		<input type="submit">
+		<a id='responder'></a>
+	</form>
+	
+		<script>
+			function compare(vCode) {
+				var realCode = sessionStorage.getItem("code");
+				document.getElementById('responder').innerHTML = realCode + " and fake code is: " + vCode;
+				if (vCode == realCode) {
+					alert("成功！");
+					//redirect到首页，显示用户信息一类的？
+				} else {
+					alert("验证失败");
+				}
+			}
+		</script>
+</body>
+</html>

@@ -10,18 +10,6 @@
 		<input type="submit">
 		<a id='responder'></a>
 	</form>
-	
-		<script>
-			function compare(vCode) {
-				var realCode = sessionStorage.getItem("code");
-				document.getElementById('responder').innerHTML = realCode + " and fake code is: " + vCode;
-				if (vCode == realCode) {
-					alert("成功！");
-					//redirect到首页，显示用户信息一类的？
-				} else {
-					alert("验证失败");
-				}
-			}
-		</script>
+
 </body>
 </html>

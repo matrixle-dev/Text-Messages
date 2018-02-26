@@ -13,6 +13,17 @@ var sms_host = 'sms.yunpian.com';
 // 只需要把这里的number换成从request里面拿来的手机号码就好
 // 然后把验证码作为response发送回去
 
+function compare(vCode) {
+	var realCode = sessionStorage.getItem("code");
+	document.getElementById('responder').innerHTML = realCode + " and fake code is: " + vCode;
+	if (vCode == realCode) {
+		alert("成功！");
+		//redirect到首页，显示用户信息一类的？
+	} else {
+		alert("验证失败");
+	}
+}
+
 function verify(number) {
 	mobile = number;
 	generate_code();

@@ -7,40 +7,49 @@ var qs = require('querystring');
 var apikey = '1d4147bb5d14e518030c600285dc17c6';
 // 修改为您要发送的短信内容
 var text = '【Matrixle】Your Verification Code is ';
+// 当使用国内号码的时候用这个
+// '【乐析留学数据矩阵】您的验证码是'
 var send_sms_uri = '/v2/sms/single_send.json';
 var sms_host = 'sms.yunpian.com';
 
 // 只需要把这里的number换成从request里面拿来的手机号码就好
 // 然后把验证码作为response发送回去
 
+// 比较用户输入的验证码和真正发送的验证码
 function compare(vCode) {
 	var realCode = sessionStorage.getItem("code");
 	document.getElementById('responder').innerHTML = realCode + " and fake code is: " + vCode;
 	if (vCode == realCode) {
-		alert("成功！");
+		//验证成功
+		return true;
 		//redirect到首页，显示用户信息一类的？
 	} else {
-		alert("验证失败");
+		//验证失败
+		return false;
 	}
 }
 
+// 生成验证码并且发送到用户的手机
 function verify(number) {
 	mobile = number;
 	generate_code();
-	send_sms(send_sms_uri,apikey,mobile,text);	
+	send_sms(send_sms_uri,apikey,mobile,text);
 }
 
 function generate_code() {
 	var codie = '';
+	// 随机函数生成四位验证码
 	for (i = 0; i < 4; i++) {
 		codie = codie + Math.floor(Math.random()*10);
 	}
+	// 把生成的验证码放在sessionStorage 里面暂存
 	store.put("code", codie);
 	text = text + codie;
 	return text;
 }
 
 function send_sms(uri,apikey,mobile,text){
+	// 这一堆是官网上面给的代码
     var post_data = {  
     'apikey': apikey,
     'mobile':mobile,
